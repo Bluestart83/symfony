@@ -207,14 +207,14 @@ class NativeSessionStorage implements SessionStorageInterface
 
         $ret = session_regenerate_id($destroy);
 
-        // workaround for https://bugs.php.net/bug.php?id=61470 as suggested by David Grudl
-        session_write_close();
         $sessionSet = isset($_SESSION);
-        if($sessionSet) {
+        if($sessionSet) 
+        {
+        	// workaround for https://bugs.php.net/bug.php?id=61470 as suggested by David Grudl
+        	session_write_close();
+        	
         	$backup = $_SESSION;
-        }
-        session_start();
-        if($sessionSet) {
+        	session_start();
         	$_SESSION = $backup;
         }
         
